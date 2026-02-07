@@ -1,0 +1,189 @@
+{
+  "kind": "build_request",
+  "title": "ASD Screening Tool (M-CHAT-R) single-page screening flow with underwater child-friendly UI",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a responsive single-page app flow for the ASD Screening Tool with these sections in order: (1) Hero, (2) Disclaimer + Demographics input, (3) Questionnaire (one question at a time), (4) Results dashboard, (5) Footer containing FAQ accordion and About content. Navigation between sections must be handled in-app (no full page reload).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Page Structure (Single Page App flow):\n1. Hero Section...\n2. Disclaimer & Input Section...\n3. Questionnaire Interface...\n4. Result Dashboard...\n\n**Footer:** ..."
+        ]
+      },
+      "acceptanceCriteria": [
+        "App is usable on mobile and desktop with sensible spacing and typography.",
+        "User can proceed through the flow from Hero -> Input -> Questionnaire -> Results and can navigate back where specified.",
+        "No full page reload is required to move between steps."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement the specified visual style consistently across the app: underwater/kids playful but professional, child-friendly, medical-but-warm, clean. Apply the provided color palette (primary #29B6F6, secondary #AB47BC, accent/CTA #FF7043, background #E1F5FE or #FFFFFF) and typography (Nunito or Poppins for headings, Open Sans for body).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "**Visual Style & Branding:**\n- Theme: Underwater/Kids Playful but Professional.\n- Primary Color (Ocean Blue): #29B6F6...\n- Secondary Color (Soft Purple): #AB47BC...\n- Accent Color (Coral/Peach): #FF7043...\n- Background: Very light blue #E1F5FE or White #FFFFFF.\n- Typography: Use \"Nunito\" or \"Poppins\" for Headings... and \"Open Sans\" for body text."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Primary UI elements (headers, key highlights) use #29B6F6; subheaders/highlights can use #AB47BC; primary CTA buttons use #FF7043.",
+        "Headings and body text use the specified fonts (loaded in the frontend).",
+        "Overall styling appears clean and consistent across all steps."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build the Hero section with the specified headline, subheadline, hero illustration (provided as a static asset), and a large rounded primary CTA button labeled exactly \"Cek Risiko Sekarang\" that moves the user to the Disclaimer & Input section.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "1. **Hero Section:**\n   - Headline: \"Deteksi Dini Tumbuh Kembang Anak\"\n   - Subheadline: \"Skrining risiko autisme (ASD) dengan metode M-CHAT-R yang akurat dan mudah.\"\n   - Hero Image placeholder: Illustration of kids diving/playing underwater.\n   - Big CTA Button: \"Cek Risiko Sekarang\" (Rounded, Coral Color)."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Hero shows the exact headline and subheadline text provided.",
+        "Hero displays the underwater kids illustration from frontend static assets.",
+        "Clicking the CTA moves to the input step without reload; CTA uses accent color styling and rounded shape."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Create the Disclaimer & Input section in a card container with the specified disclaimer copy and ONLY these inputs: Age in months (dropdown) and Gender (radio). Remove/omit any name field entirely. Add a \"Lanjut\" button to proceed to the questionnaire.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "2. **Disclaimer & Input Section:**\n   - Card container with text: \"Alat ini adalah skrining awal, bukan diagnosis medis.\"\n   - Input fields: \"Nama Anak\", \"Usia (Bulan)\" (Dropdown), \"Jenis Kelamin\" (Radio button).\n   - Button: \"Lanjut\".\n...\nalso, hapus kolom nama ya, we dont need nama responden, just gender and age"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The input UI contains no name field anywhere.",
+        "Age is selected via a dropdown labeled exactly \"Usia (Bulan)\".",
+        "Gender is selected via radio buttons labeled exactly \"Jenis Kelamin\".",
+        "The disclaimer text appears exactly as provided.",
+        "The \"Lanjut\" button is disabled until age and gender are selected (or equivalent clear validation is present)."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement the Questionnaire interface to present exactly one M-CHAT-R question at a time with: a top progress bar (blue gradient), a card layout for the question text, two large answer buttons labeled exactly \"YA\" and \"TIDAK\" with clear green/red styling, and \"Back\"/\"Next\" navigation controls.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "3. **Questionnaire Interface:**\n   - Progress Bar at the top (Gradient Blue).\n   - Card Layout: Display ONE question at a time (e.g., \"Apakah anak Anda menatap mata Anda saat diajak bicara?\").\n   - Answer Buttons: Two large, distinct buttons. \"YA\" (Green outline/fill) and \"TIDAK\" (Red outline/fill).\n   - Navigation: \"Back\" and \"Next\" buttons."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Only one question is visible at a time.",
+        "Progress bar reflects current question index out of total.",
+        "\"YA\" and \"TIDAK\" are large, accessible controls with distinct green/red styling.",
+        "Back moves to the previous question (or previous step when on first question); Next moves forward.",
+        "Next is disabled until an answer is selected for the current question (or user is clearly prompted to answer)."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement M-CHAT-R scoring logic to compute a total risk score from the questionnaire answers and show a Results Dashboard with three visual states (Low/Medium/High) based on the score. Ensure the results screen displays the specified icon and guidance copy for each state.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "4. **Result Dashboard (Dynamic States):**\n   - Create 3 visual states based on score:\n     - **Low Risk:** Green Theme. Icon: Checkmark. Text: \"Risiko Rendah. Lakukan skrining ulang saat usia 2 tahun.\"\n     - **Medium Risk:** Yellow/Orange Theme. Icon: Warning Triangle. Text: \"Risiko Sedang. Disarankan Follow-up.\"\n     - **High Risk:** Red Theme. Icon: Hospital/Doctor. Text: \"Risiko Tinggi. Segera rujuk ke fasilitas kesehatan.\""
+        ]
+      },
+      "acceptanceCriteria": [
+        "After answering all questions, the app shows a results dashboard.",
+        "Results state changes visually (green / yellow-orange / red theme) and uses the specified icon concept (checkmark / warning triangle / hospital/doctor).",
+        "The results text matches exactly the provided copy for the corresponding risk state.",
+        "A computed score is used to determine state, and the logic is deterministic given the same answers."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add a Footer section containing \"Tentang Kami\" and \"FAQ\" areas. Implement the FAQ as an accordion with the four provided Q&A entries, and include the About headline and body text exactly as provided.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "**Footer:**\n- Copyright text and \"Tentang Kami\", \"FAQ\".\n**Content for \"FAQ\" Section (Accordion Style):**\n1. Question: \"Apa itu Skrining M-CHAT-R/F?\"...\n...\n**Content for \"Tentang Kami\" Section (Brief):**\nHeadline: \"Inisiatif Mahasiswa FK UNSRI\"\nBody Text: \"Platform ini dikembangkan oleh mahasiswa Fakultas Kedokteran Universitas Sriwijaya (FK UNSRI) ...\""
+        ]
+      },
+      "acceptanceCriteria": [
+        "Footer contains navigable sections/anchors for \"Tentang Kami\" and \"FAQ\".",
+        "FAQ is an accordion and includes all four questions and answers exactly as provided.",
+        "About section shows the provided headline and body text exactly as provided."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Ensure privacy behavior aligns with the stated FAQ claim: do not permanently store personal identity data. The demographic inputs (age, gender) and questionnaire answers must be kept in-memory on the client for the session and be resettable by the user (e.g., restart screening).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "4. Question: \"Apakah data saya aman?\"\n   Answer: \"Kami tidak menyimpan data identitas pribadi secara permanen. Skrining ini bersifat rahasia...\""
+        ]
+      },
+      "acceptanceCriteria": [
+        "No feature is implemented that persists PII (e.g., name—also not collected) to stable storage.",
+        "A user can restart the screening and clear previously entered age/gender and answers."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Add the required generated illustration(s) as static assets under frontend/public/assets/generated and render them in the Hero section.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Hero Image placeholder: Illustration of kids diving/playing underwater."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated image files exist under frontend/public/assets/generated.",
+        "Hero loads the image from static assets (not via backend)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor; only add backend logic if strictly needed.",
+    "Do not edit files under frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Use English for any user-facing text in this build request document; UI copy must follow the exact strings provided by the user (which are in Indonesian)."
+  ],
+  "nonGoals": [
+    "Implementing third-party authentication beyond Internet Identity.",
+    "Persisting screening results or user data to an external database or third-party service.",
+    "Adding real-time features (websockets/chat/notifications).",
+    "Implementing the full M-CHAT-R/F follow-up interview flow unless explicitly requested later."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Underwater children diving/playing illustration, clean vector style, warm medical-friendly palette (hero-underwater-kids.dim_1200x600.png)"
+    ],
+    "edits": []
+  }
+}

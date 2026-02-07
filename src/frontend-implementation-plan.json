@@ -1,0 +1,249 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "ASD Screening Tool (M-CHAT-R) single-page screening flow with underwater child-friendly UI",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement a responsive single-page screening flow with in-app navigation across Hero, Input, Questionnaire, Results, and Footer (FAQ/About).",
+      "acceptanceCriteria": [
+        "App is usable on mobile and desktop with sensible spacing and typography.",
+        "User can proceed through the flow from Hero -> Input -> Questionnaire -> Results and can navigate back where specified.",
+        "No full page reload is required to move between steps."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the SPA orchestrator that renders the five required sections in order and controls step navigation (forward/back) entirely in-app (no full page reload)."
+        },
+        {
+          "path": "frontend/src/components/screening/ScreeningFlow.tsx",
+          "operation": "create",
+          "description": "Create a state-driven flow component (step machine) that owns session state (age, gender, answers), exposes handlers (start, next, back, restart), and composes all section components. Ensure it is used by frontend/src/App.tsx so no component is orphaned."
+        },
+        {
+          "path": "frontend/src/components/screening/sections/HeroSection.tsx",
+          "operation": "create",
+          "description": "Create the Hero section component and expose an onCta handler used by the flow to navigate to the Disclaimer & Input section."
+        },
+        {
+          "path": "frontend/src/components/screening/sections/InputSection.tsx",
+          "operation": "create",
+          "description": "Create the Disclaimer + Demographics section component with controlled inputs and a continue action to proceed into the questionnaire."
+        },
+        {
+          "path": "frontend/src/components/screening/sections/QuestionnaireSection.tsx",
+          "operation": "create",
+          "description": "Create the one-question-at-a-time questionnaire section component with progress, answer selection, and Back/Next controls wired to the flow state."
+        },
+        {
+          "path": "frontend/src/components/screening/sections/ResultsSection.tsx",
+          "operation": "create",
+          "description": "Create the results dashboard section component that renders the computed state and provides a restart control that returns to the start and clears session data."
+        },
+        {
+          "path": "frontend/src/components/screening/sections/FooterSection.tsx",
+          "operation": "create",
+          "description": "Create the footer section component containing About and FAQ areas and expose ids/anchors so the flow can link/navigate within the same page."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Apply the underwater/kids playful but professional theme with the specified palette and fonts across the app.",
+      "acceptanceCriteria": [
+        "Primary UI elements (headers, key highlights) use #29B6F6; subheaders/highlights can use #AB47BC; primary CTA buttons use #FF7043.",
+        "Headings and body text use the specified fonts (loaded in the frontend).",
+        "Overall styling appears clean and consistent across all steps."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Load Nunito (or Poppins) for headings and Open Sans for body via static font links so the UI uses the required typography consistently."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Add Tailwind base layers and define global CSS variables/theme tokens mapping to the required palette (primary #29B6F6, secondary #AB47BC, accent #FF7043, background #E1F5FE/#FFFFFF). Apply font-family defaults for headings/body to match the loaded fonts."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme tokens (e.g., fontFamily and optional semantic colors) to make the specified palette/typography easy to apply consistently across all sections."
+        },
+        {
+          "path": "frontend/src/components/screening/ScreeningLayout.tsx",
+          "operation": "create",
+          "description": "Create a shared layout wrapper (background, max-width, spacing, section separators) used by the flow for consistent underwater/medical-warm styling across steps."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build the Hero section with the exact Indonesian headline/subheadline, hero illustration asset, and a rounded CTA button that advances to the Input section.",
+      "acceptanceCriteria": [
+        "Hero shows the exact headline and subheadline text provided.",
+        "Hero displays the underwater kids illustration from frontend static assets.",
+        "Clicking the CTA moves to the input step without reload; CTA uses accent color styling and rounded shape."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/screening/sections/HeroSection.tsx",
+          "operation": "modify",
+          "description": "Implement the exact headline/subheadline strings, render the static hero illustration from frontend/public/assets/generated/hero-underwater-kids.dim_1200x600.png, and add the large rounded primary CTA labeled exactly \"Cek Risiko Sekarang\" that triggers in-app navigation to the Input section."
+        },
+        {
+          "path": "frontend/src/components/screening/ScreeningFlow.tsx",
+          "operation": "modify",
+          "description": "Wire the Hero CTA handler to advance the flow to the Disclaimer & Input section without reloading the page."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Create the Disclaimer & Input card with only age (dropdown) and gender (radio), omit name entirely, and validate before proceeding.",
+      "acceptanceCriteria": [
+        "The input UI contains no name field anywhere.",
+        "Age is selected via a dropdown labeled exactly \"Usia (Bulan)\".",
+        "Gender is selected via radio buttons labeled exactly \"Jenis Kelamin\".",
+        "The disclaimer text appears exactly as provided.",
+        "The \"Lanjut\" button is disabled until age and gender are selected (or equivalent clear validation is present)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/screening/sections/InputSection.tsx",
+          "operation": "modify",
+          "description": "Implement the card container with the exact disclaimer text \"Alat ini adalah skrining awal, bukan diagnosis medis.\", include only the two inputs (dropdown labeled exactly \"Usia (Bulan)\" and radio group labeled exactly \"Jenis Kelamin\"), ensure no name field exists, and implement validation so \"Lanjut\" is disabled until selections are made."
+        },
+        {
+          "path": "frontend/src/components/screening/ScreeningFlow.tsx",
+          "operation": "modify",
+          "description": "Store age (months) and gender in in-memory React state and only allow transition into the questionnaire when the Input section reports valid selections."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement a one-question-at-a-time questionnaire UI with progress bar, YA/TIDAK answers, and Back/Next navigation with gating.",
+      "acceptanceCriteria": [
+        "Only one question is visible at a time.",
+        "Progress bar reflects current question index out of total.",
+        "\"YA\" and \"TIDAK\" are large, accessible controls with distinct green/red styling.",
+        "Back moves to the previous question (or previous step when on first question); Next moves forward.",
+        "Next is disabled until an answer is selected for the current question (or user is clearly prompted to answer)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/screening/data/mchatQuestions.ts",
+          "operation": "create",
+          "description": "Add a frontend question bank used by the questionnaire UI (M-CHAT-R items) so exactly one question can be rendered at a time and the total count is known for progress calculations."
+        },
+        {
+          "path": "frontend/src/components/screening/sections/QuestionnaireSection.tsx",
+          "operation": "modify",
+          "description": "Render exactly one question at a time using the question bank, show a top progress bar with a blue gradient, display the question in a card layout, provide two large buttons labeled exactly \"YA\" (green styling) and \"TIDAK\" (red styling), and implement Back/Next controls with Next disabled until an answer is selected."
+        },
+        {
+          "path": "frontend/src/components/screening/components/ProgressBar.tsx",
+          "operation": "create",
+          "description": "Create a lightweight progress bar component capable of rendering a blue gradient fill based on current/total; use it in the questionnaire section to meet the visual requirement."
+        },
+        {
+          "path": "frontend/src/components/screening/ScreeningFlow.tsx",
+          "operation": "modify",
+          "description": "Wire questionnaire navigation: Back goes to previous question (or back to Input when on the first question), Next advances, and prevent advancing beyond the last question until current answer is selected."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Compute deterministic M-CHAT-R risk score from answers and render a Results Dashboard with Low/Medium/High states and exact guidance copy.",
+      "acceptanceCriteria": [
+        "After answering all questions, the app shows a results dashboard.",
+        "Results state changes visually (green / yellow-orange / red theme) and uses the specified icon concept (checkmark / warning triangle / hospital/doctor).",
+        "The results text matches exactly the provided copy for the corresponding risk state.",
+        "A computed score is used to determine state, and the logic is deterministic given the same answers."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/screening/scoring/mchatScoring.ts",
+          "operation": "create",
+          "description": "Implement deterministic client-side scoring utilities to compute a total risk score from the in-memory answers and map score ranges to Low/Medium/High result states."
+        },
+        {
+          "path": "frontend/src/components/screening/sections/ResultsSection.tsx",
+          "operation": "modify",
+          "description": "Render the results dashboard UI with three visual themes (green / yellow-orange / red) and icons matching the specified concepts (checkmark / warning triangle / hospital/doctor). Display the exact provided guidance copy per state: Low: \"Risiko Rendah. Lakukan skrining ulang saat usia 2 tahun.\" Medium: \"Risiko Sedang. Disarankan Follow-up.\" High: \"Risiko Tinggi. Segera rujuk ke fasilitas kesehatan.\""
+        },
+        {
+          "path": "frontend/src/components/screening/ScreeningFlow.tsx",
+          "operation": "modify",
+          "description": "After the final questionnaire answer is completed, compute the score via the scoring utility and navigate in-app to the Results section; ensure the same answers always produce the same score/state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Add a Footer with Tentang Kami and an FAQ accordion containing the four provided Q&A entries and exact About copy.",
+      "acceptanceCriteria": [
+        "Footer contains navigable sections/anchors for \"Tentang Kami\" and \"FAQ\".",
+        "FAQ is an accordion and includes all four questions and answers exactly as provided.",
+        "About section shows the provided headline and body text exactly as provided."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/screening/sections/FooterSection.tsx",
+          "operation": "modify",
+          "description": "Implement footer content with anchorable sections titled \"Tentang Kami\" and \"FAQ\". Use the shadcn-ui Accordion component to render the FAQ accordion (Verify the component's usage instructions before implementing.) and include all four Q&A entries exactly as provided. Render the About headline \"Inisiatif Mahasiswa FK UNSRI\" and the provided body text exactly as provided."
+        },
+        {
+          "path": "frontend/src/components/screening/ScreeningFlow.tsx",
+          "operation": "modify",
+          "description": "Wire footer anchors/links (in-page navigation) so users can jump to \"Tentang Kami\" and \"FAQ\" within the single-page flow without reload."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Keep demographics and answers in-memory only for the session and provide a user-controlled restart that clears all entered data.",
+      "acceptanceCriteria": [
+        "No feature is implemented that persists PII (e.g., name—also not collected) to stable storage.",
+        "A user can restart the screening and clear previously entered age/gender and answers."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/screening/ScreeningFlow.tsx",
+          "operation": "modify",
+          "description": "Ensure all demographic inputs and questionnaire answers are stored only in React state (no localStorage/sessionStorage/remote persistence). Implement a restart action that clears age, gender, answers, score, and returns the UI to the starting step."
+        },
+        {
+          "path": "frontend/src/components/screening/sections/ResultsSection.tsx",
+          "operation": "modify",
+          "description": "Add a prominent restart control (e.g., \"Ulangi Skrining\") that triggers the flow restart/clear behavior and returns the user to the beginning, confirming that data is reset for the session."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add the required generated hero illustration under frontend/public/assets/generated and render it in the Hero section.",
+      "acceptanceCriteria": [
+        "Generated image files exist under frontend/public/assets/generated.",
+        "Hero loads the image from static assets (not via backend)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/hero-underwater-kids.dim_1200x600.png",
+          "operation": "create",
+          "description": "Add the generated static hero illustration asset exactly as required at frontend/public/assets/generated/hero-underwater-kids.dim_1200x600.png."
+        },
+        {
+          "path": "frontend/src/components/screening/sections/HeroSection.tsx",
+          "operation": "modify",
+          "description": "Render the hero illustration by referencing the static asset frontend/public/assets/generated/hero-underwater-kids.dim_1200x600.png (loaded as a public asset; not via backend)."
+        }
+      ]
+    }
+  ]
+}

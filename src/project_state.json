@@ -1,0 +1,131 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a comprehensive, responsive single-page web application called \"ASD Screening Tool\" based on M-CHAT-R logic with a child-friendly, medical-but-warm, clean underwater-themed design. Includes hero, disclaimer + demographic inputs (age in months + gender only), one-question-at-a-time questionnaire with progress, dynamic risk result dashboard (low/medium/high), and footer with FAQ + About sections.",
+  "architectural_notes": [
+    "Single-page app flow with sections: Hero -> Disclaimer/Input -> Questionnaire -> Results -> Footer.",
+    "Do not collect or store respondent/child name; only collect age (months) and gender.",
+    "Questionnaire displays exactly one question per screen with progress indicator and YA/TIDAK responses.",
+    "Results page renders 3 states (low/medium/high risk) driven by M-CHAT-R scoring logic.",
+    "Branding constraints: underwater playful-professional theme; primary #29B6F6, secondary #AB47BC, accent #FF7043; background #E1F5FE/#FFFFFF; headings Nunito/Poppins; body Open Sans."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Underwater children diving/playing illustration, clean vector style, warm medical-friendly palette (hero-underwater-kids.dim_1200x600.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-responsive-single-page-app-flow-for-the-asd-screening-tool-with-these-sections-in-order-1-hero-2-disclaimer-demographics-input-3-questionnaire-one-question-at-a-time-4-results-dashboard-5-footer-containing-faq-accordion-and-about-content-navigation-between-sections-must-be-handled-in-app-no-full-page-reload",
+      "title": "Create a responsive single-page app flow for the ASD Screening Tool with these sections in order: (1) Hero, (2) Disclaimer + Demographics input, (3) Questionnaire (one question at a time), (4) Results dashboard, (5) Footer containing FAQ accordion and About content. Navigation between sections must be handled in-app (no full page reload).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-specified-visual-style-consistently-across-the-app-underwater-kids-playful-but-professional-child-friendly-medical-but-warm-clean-apply-the-provided-color-palette-primary-29b6f6-secondary-ab47bc-accent-cta-ff7043-background-e1f5fe-or-ffffff-and-typography-nunito-or-poppins-for-headings-open-sans-for-body",
+      "title": "Implement the specified visual style consistently across the app: underwater/kids playful but professional, child-friendly, medical-but-warm, clean. Apply the provided color palette (primary #29B6F6, secondary #AB47BC, accent/CTA #FF7043, background #E1F5FE or #FFFFFF) and typography (Nunito or Poppins for headings, Open Sans for body).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-hero-section-with-the-specified-headline-subheadline-hero-illustration-provided-as-a-static-asset-and-a-large-rounded-primary-cta-button-labeled-exactly-cek-risiko-sekarang-that-moves-the-user-to-the-disclaimer-input-section",
+      "title": "Build the Hero section with the specified headline, subheadline, hero illustration (provided as a static asset), and a large rounded primary CTA button labeled exactly \"Cek Risiko Sekarang\" that moves the user to the Disclaimer & Input section.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-disclaimer-input-section-in-a-card-container-with-the-specified-disclaimer-copy-and-only-these-inputs-age-in-months-dropdown-and-gender-radio-remove-omit-any-name-field-entirely-add-a-lanjut-button-to-proceed-to-the-questionnaire",
+      "title": "Create the Disclaimer & Input section in a card container with the specified disclaimer copy and ONLY these inputs: Age in months (dropdown) and Gender (radio). Remove/omit any name field entirely. Add a \"Lanjut\" button to proceed to the questionnaire.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-questionnaire-interface-to-present-exactly-one-m-chat-r-question-at-a-time-with-a-top-progress-bar-blue-gradient-a-card-layout-for-the-question-text-two-large-answer-buttons-labeled-exactly-ya-and-tidak-with-clear-green-red-styling-and-back-next-navigation-controls",
+      "title": "Implement the Questionnaire interface to present exactly one M-CHAT-R question at a time with: a top progress bar (blue gradient), a card layout for the question text, two large answer buttons labeled exactly \"YA\" and \"TIDAK\" with clear green/red styling, and \"Back\"/\"Next\" navigation controls.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-m-chat-r-scoring-logic-to-compute-a-total-risk-score-from-the-questionnaire-answers-and-show-a-results-dashboard-with-three-visual-states-low-medium-high-based-on-the-score-ensure-the-results-screen-displays-the-specified-icon-and-guidance-copy-for-each-state",
+      "title": "Implement M-CHAT-R scoring logic to compute a total risk score from the questionnaire answers and show a Results Dashboard with three visual states (Low/Medium/High) based on the score. Ensure the results screen displays the specified icon and guidance copy for each state.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-footer-section-containing-tentang-kami-and-faq-areas-implement-the-faq-as-an-accordion-with-the-four-provided-q-a-entries-and-include-the-about-headline-and-body-text-exactly-as-provided",
+      "title": "Add a Footer section containing \"Tentang Kami\" and \"FAQ\" areas. Implement the FAQ as an accordion with the four provided Q&A entries, and include the About headline and body text exactly as provided.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-privacy-behavior-aligns-with-the-stated-faq-claim-do-not-permanently-store-personal-identity-data-the-demographic-inputs-age-gender-and-questionnaire-answers-must-be-kept-in-memory-on-the-client-for-the-session-and-be-resettable-by-the-user-e-g-restart-screening",
+      "title": "Ensure privacy behavior aligns with the stated FAQ claim: do not permanently store personal identity data. The demographic inputs (age, gender) and questionnaire answers must be kept in-memory on the client for the session and be resettable by the user (e.g., restart screening).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-required-generated-illustration-s-as-static-assets-under-frontend-public-assets-generated-and-render-them-in-the-hero-section",
+      "title": "Add the required generated illustration(s) as static assets under frontend/public/assets/generated and render them in the Hero section.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Implement SPA flow and layout: Hero, Disclaimer/Input, Questionnaire, Results Dashboard, Footer",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Apply visual style/branding (underwater theme, specified color palette, Nunito/Poppins + Open Sans typography, responsive child-friendly UI)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Create Disclaimer & Input section with ONLY Age (months dropdown) and Gender (radio); remove Name field",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Build questionnaire UI showing one M-CHAT-R question at a time with progress bar, YA/TIDAK buttons, Back/Next navigation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Implement M-CHAT-R scoring logic and Results Dashboard with 3 visual risk states (low/medium/high) and corresponding guidance copy",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add FAQ accordion content and About section content; include footer links (Tentang Kami, FAQ)",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "ASD Screening Tool",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

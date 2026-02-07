@@ -1,0 +1,108 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-07T14:06:29.922Z",
+  "summary": "The diff implements a client-side single-page screening flow (Hero → Input → Questionnaire → Results) with a footer and basic M-CHAT-R scoring, plus styling/fonts and a hero image reference. However, some requirements cannot be confirmed from the diff (due to truncation/omitted files), and some requested assets/copy requirements are not evidenced. The diff also includes additional auth/actor/react-query plumbing and an empty backend actor that were not requested by the BuildRequest.",
+  "missing_requirements": [
+    {
+      "id": "REQ-9",
+      "requirement": "Add the required generated illustration(s) as static assets under frontend/public/assets/generated and render them in the Hero section.",
+      "reason": "HeroSection references the image path, but the diff summary does not show any added static asset files under frontend/public/assets/generated (and omitted files prevent verification).",
+      "evidence": [
+        "frontend/src/components/screening/sections/HeroSection.tsx",
+        "File diff summary: Omitted files due to limits: added=3"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Footer FAQ accordion includes all four provided Q&A entries exactly as provided (including privacy-related FAQ copy).",
+      "reason": "FooterSection is truncated mid-way through the 4th FAQ answer, so it is not possible to verify that the 4th Q&A entry is complete and matches the provided copy exactly.",
+      "evidence": [
+        "frontend/src/components/screening/sections/FooterSection.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "The Disclaimer & Input section shows the disclaimer text exactly as provided.",
+      "reason": "The disclaimer in the diff is a short sentence; the BuildRequest requires the disclaimer copy to match exactly the provided text, but the provided disclaimer text is not included in the BuildRequest excerpt and the diff cannot be validated against it.",
+      "evidence": [
+        "frontend/src/components/screening/sections/InputSection.tsx"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Results dashboard displays the specified guidance copy for each risk state exactly as provided.",
+      "reason": "The ResultsSection contains risk-state descriptions and additional guidance bullets, but the BuildRequest requires exact provided copy; the provided canonical copy is not present here to validate against, and the diff shows custom text that may not match.",
+      "evidence": [
+        "frontend/src/components/screening/sections/ResultsSection.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Next is disabled until an answer is selected for the current question (or user is clearly prompted to answer).",
+      "reason": "QuestionnaireSection defines `isAnswered` but the file is truncated before the Next button implementation, so it cannot be verified that Next is disabled/enforced.",
+      "evidence": [
+        "frontend/src/components/screening/sections/QuestionnaireSection.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "\"Lanjut\" button is disabled until age and gender are selected (or equivalent clear validation is present).",
+      "reason": "InputSection computes `isValid`, but the file is truncated before the final button rendering/disabled logic, so it cannot be verified that \"Lanjut\" is disabled until valid.",
+      "evidence": [
+        "frontend/src/components/screening/sections/InputSection.tsx (truncated)"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Introduced/added Internet Identity + actor management hooks and React Query actor invalidation/refetch behavior.",
+      "reason": "The BuildRequest does not request authentication/actor-query behavior changes; it focuses on the screening UI flow and explicitly lists third-party auth as a non-goal.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts",
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/main.tsx"
+      ]
+    },
+    {
+      "description": "Added an empty Motoko backend actor.",
+      "reason": "The BuildRequest states backend logic should only be added if strictly needed; the screening logic is client-side and no backend features are requested.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "description": "Added a placeholder React Query hooks file stating backend is empty.",
+      "reason": "Not requested by the BuildRequest; no requirement mentions adding query hook scaffolding.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/screening/ScreeningFlow.tsx",
+    "frontend/src/components/screening/ScreeningLayout.tsx",
+    "frontend/src/components/screening/components/ProgressBar.tsx",
+    "frontend/src/components/screening/data/mchatQuestions.ts",
+    "frontend/src/components/screening/scoring/mchatScoring.ts",
+    "frontend/src/components/screening/sections/FooterSection.tsx",
+    "frontend/src/components/screening/sections/HeroSection.tsx",
+    "frontend/src/components/screening/sections/InputSection.tsx",
+    "frontend/src/components/screening/sections/QuestionnaireSection.tsx",
+    "frontend/src/components/screening/sections/ResultsSection.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

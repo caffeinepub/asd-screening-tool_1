@@ -1,2 +1,3 @@
-# asd-screening-tool_1
-Exported from Caffeine project: ASD Screening Tool
+## ASD Screening Tool
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

@@ -1,0 +1,17 @@
+{
+  "frontend/src/App.tsx": "Main application entry point that renders the ScreeningFlow component.",
+  "frontend/src/index.css": "Global styles with OKLCH color system defining the underwater/medical theme with Ocean Blue (#29B6F6), Soft Purple (#AB47BC), and Coral (#FF7043) colors, plus Nunito/Open Sans typography.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending theme with custom colors (primary, secondary, accent, success, warning, destructive), Nunito/Open Sans fonts, and rounded border radii for the child-friendly aesthetic.",
+  "frontend/index.html": "HTML entry point with Indonesian language attribute and meta description for the ASD screening tool.",
+  "frontend/src/components/screening/ScreeningFlow.tsx": "Main state machine component managing the screening flow through hero, input, questionnaire, and results steps with in-memory session state for demographics and answers.",
+  "frontend/src/components/screening/ScreeningLayout.tsx": "Shared layout wrapper providing consistent background gradient and max-width container for all screening sections.",
+  "frontend/src/components/screening/sections/HeroSection.tsx": "Hero section with headline, subheadline, underwater illustration, and primary CTA button to start screening.",
+  "frontend/src/components/screening/sections/InputSection.tsx": "Demographics input section with disclaimer, age dropdown (16-30 months), and gender radio buttons with validation.",
+  "frontend/src/components/screening/sections/QuestionnaireSection.tsx": "One-question-at-a-time questionnaire interface with progress bar, YA/TIDAK answer buttons, and back/next navigation.",
+  "frontend/src/components/screening/sections/ResultsSection.tsx": "Results dashboard displaying low/medium/high risk states with appropriate icons, colors, guidance text, and restart functionality.",
+  "frontend/src/components/screening/sections/FooterSection.tsx": "Footer containing About section (FK UNSRI initiative) and FAQ accordion with four Q&A entries.",
+  "frontend/src/components/screening/components/ProgressBar.tsx": "Progress bar component with blue gradient fill showing questionnaire completion percentage.",
+  "frontend/src/components/screening/data/mchatQuestions.ts": "M-CHAT-R question bank containing 20 screening questions with critical item flags.",
+  "frontend/src/components/screening/scoring/mchatScoring.ts": "Client-side M-CHAT-R scoring logic calculating risk level (low/medium/high) based on total score and critical item score.",
+  "frontend/src/hooks/useQueries.ts": "Placeholder file for React Query hooks (empty as all logic is client-side)."
+}
